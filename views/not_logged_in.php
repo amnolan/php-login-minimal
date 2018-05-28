@@ -1,30 +1,29 @@
-<?php
-// show potential errors / feedback (from login object)
-if (isset($login)) {
-    if ($login->errors) {
-        foreach ($login->errors as $error) {
-            echo $error;
-        }
-    }
-    if ($login->messages) {
-        foreach ($login->messages as $message) {
-            echo $message;
-        }
-    }
-}
-?>
-
-<!-- login form box -->
-<form method="post" action="index.php" name="loginform">
-
-    <label for="login_input_username">Username</label>
-    <input id="login_input_username" class="login_input" type="text" name="user_name" required />
-
-    <label for="login_input_password">Password</label>
-    <input id="login_input_password" class="login_input" type="password" name="user_password" autocomplete="off" required />
-
-    <input type="submit"  name="login" value="Log in" />
-
-</form>
-
-<a href="register.php">Register new account</a>
+<div class="container">
+    <?php include 'header.php';?>
+    <div class="row">
+    <form class="form-horizontal" method="post" action="index.php" name="loginform">
+      <div class="form-group">
+        <label for="login_input_username" class="col-sm-2 control-label text-left">User Name</label>
+        <div class="col-sm-8">
+          <input class="form-control login_input" id="login_input_username" placeholder="User Name" type="text" name="user_name" required>
+        </div>
+        <div class="col-sm-2">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="login_input_password" class="col-sm-2 control-label text-left">Password</label>
+        <div class="col-sm-8">
+          <input type="password" class="form-control login_input" id="login_input_password" placeholder="Password" name="user_password">
+        </div>
+        <div class="col-sm-2">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <input type="submit" name="login" class="btn btn-default" value="Log in"></button>
+        </div>
+      </div>
+    </form>
+    </div>
+    <?php include 'footer.php'; ?>
+</div>

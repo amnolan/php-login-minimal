@@ -86,21 +86,27 @@ class Registration
                 // hash string. the PASSWORD_DEFAULT constant is defined by the PHP 5.5, or if you are using
                 // PHP 5.3/5.4, by the password hashing compatibility library
                 $user_password_hash = password_hash($user_password, PASSWORD_DEFAULT);
-
-                // check if user or email address already exists
-                $sql = "SELECT * FROM users WHERE user_name = '" . $user_name . "' OR user_email = '" . $user_email . "';";
-                $query_check_user_name = $this->db_connection->query($sql);
+                // define prepared statement
+                $prepared_user_query_statement = "SELECT user_name, user_email, user_password_hash
+                        FROM users
+                        WHERE user_name=? OR user_email =?";
+                $stmt = $this->db_connection->prepare($prepared_user_query_statement);
+                $stmt->bind_param("ss", $user_name, $user_email);
+                $stmt->execute();
+                $query_check_user_name = $stmt->get_result();
 
                 if ($query_check_user_name->num_rows == 1) {
                     $this->errors[] = "Sorry, that username / email address is already taken.";
                 } else {
-                    // write new user's data into database
-                    $sql = "INSERT INTO users (user_name, user_password_hash, user_email)
-                            VALUES('" . $user_name . "', '" . $user_password_hash . "', '" . $user_email . "');";
-                    $query_new_user_insert = $this->db_connection->query($sql);
+                    // updated to use a prepared statement as a second layer of defense against SQL injection
+                    $prepared_new_user_statement = "INSERT INTO users (user_name, user_password_hash, user_email)
+                            VALUES(?, ?, ?)";
+                    $stmt = $this->db_connection->prepare($prepared_new_user_statement);
+                    $stmt->bind_param("sss", $user_name, $user_password_hash, $user_email);
+                    $stmt->execute();
 
                     // if user has been added successfully
-                    if ($query_new_user_insert) {
+                    if ( ! $stmt->execute() ) {
                         $this->messages[] = "Your account has been created successfully. You can now log in.";
                     } else {
                         $this->errors[] = "Sorry, your registration failed. Please go back and try again.";

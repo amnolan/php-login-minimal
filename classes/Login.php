@@ -64,13 +64,14 @@ class Login
 
                 // escape the POST stuff
                 $user_name = $this->db_connection->real_escape_string($_POST['user_name']);
-
-                // database query, getting all the info of the selected user (allows login via email address in the
-                // username field)
-                $sql = "SELECT user_name, user_email, user_password_hash
+                // define prepared statement
+                $prepared_user_query_statement = "SELECT user_name, user_email, user_password_hash
                         FROM users
-                        WHERE user_name = '" . $user_name . "' OR user_email = '" . $user_name . "';";
-                $result_of_login_check = $this->db_connection->query($sql);
+                        WHERE user_name=? OR user_email =?";
+                $stmt = $this->db_connection->prepare($prepared_user_query_statement);
+                $stmt->bind_param("ss", $user_name, $user_name);
+                $stmt->execute();
+                $result_of_login_check = $stmt->get_result();
 
                 // if this user exists
                 if ($result_of_login_check->num_rows == 1) {
@@ -88,10 +89,11 @@ class Login
                         $_SESSION['user_login_status'] = 1;
 
                     } else {
-                        $this->errors[] = "Wrong password. Try again.";
+                        $this->errors[] = "Your login credentials were not correct.";
                     }
                 } else {
-                    $this->errors[] = "This user does not exist.";
+                    $this->errors[] = "This user may not exist.";
+
                 }
             } else {
                 $this->errors[] = "Database connection problem.";

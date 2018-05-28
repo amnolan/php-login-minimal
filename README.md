@@ -1,3 +1,18 @@
+# php-login-minimal (boot)
+
+I forked this project mainly because it is no longer maintained and it has a great foundation. I wanted to make it slightly more secure (using prepared statements instead of purely relying on the real_escape_string() method). The other thing I wanted to do was to have all the views use a simple, yet appealing UI (hence bootstrap). This makes it more akin to a quick starter app with login capabilities. I also generified the error messages to make it more difficult for attackers to know what the actual problem is (whether it's the username or password that is incorrect). I will continue to make improvements as long as I have time and don't get distracted by other projects and other day-to-day tasks.
+
+I _may_ end up adding a login attempts / password reset module as time permits. I _may_ even add a "black hole" for bots and attackers, something or exactly like **[this](https://perishablepress.com/blackhole-bad-bots-php-version/)**. One other idea I'd like to look into is handling bots and attackers as this was a massive pain on a previous app I had.
+
+Here are some before and after screenshots.
+
+![Successful Logout](https://raw.githubusercontent.com/amnolan/php-login-minimal/master/screenshots/successful_logout_1.png "Successful Logout")
+
+![User Name Taken](https://raw.githubusercontent.com/amnolan/php-login-minimal/master/screenshots/user_name_taken_1.png "User Name Taken")
+
+
+**The original readme is below.**
+
 # php-login-minimal
 
 A simple, but secure PHP login script. Uses the ultra-modern & future-proof PHP 5.5 BLOWFISH hashing/salting functions (includes the official PHP 5.3 & PHP 5.4 compatibility pack, which makes those functions available in these versions too). 
