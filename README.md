@@ -12,7 +12,7 @@ Here are some before and after screenshots.
 
 **Attention**
 
-If you use application for commercial use, I make no guarantee or warranty as to the safety or protection of user data. Use and modify at your own risk.
+I make no guarantee or warranty as to the safety or protection of user data with the use of this application or any derivative version thereof. Use and modify this application strictly at your own risk. By checking out, downloading or using the code you agree to the terms stated here and to the terms of the MIT license.
 
 **The original readme is below.**
 
