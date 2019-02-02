@@ -10,6 +10,7 @@ Here are some before and after screenshots.
 
 ![User Name Taken](https://raw.githubusercontent.com/amnolan/php-login-minimal/master/screenshots/user_name_taken_1.png "User Name Taken")
 
+If you use application for commercial use, I make no guarantee or warantee as to the safety or protection of user data. Use and modify at your own risk.
 
 **The original readme is below.**
 
